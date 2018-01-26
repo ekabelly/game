@@ -2,17 +2,14 @@ const express = require('express');
 const Router = express.Router();
 
 const {
-	fetchAllCharacters,
-	fetchChar,
-	fetchItems
-} = require('../db/gamedb');
+	fetchItems,
+	fetchItem
+} = require('../db/mysql.game');
 
 const {responseMiddleware, arrangeData} = require('../services');
 
-Router.get('/chars', fetchAllCharacters, responseMiddleware);
-
-Router.get('/:id/char', fetchChar, responseMiddleware);
-
 Router.get('/items', fetchItems, arrangeData, responseMiddleware);
+
+Router.get('/:id/item', fetchItem, arrangeData, responseMiddleware);
 
 module.exports = Router;
