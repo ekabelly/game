@@ -11,8 +11,6 @@ const startServer = () => app.listen(4001, ()=>console.log('server up on port 40
 app.use(BP.json());
 app.use(BP.urlencoded({extended:true}));
 
-app.use('/node_modules', express.static('node_modules'));
-
 app.use('/client', express.static('client'));
 
 app.use('/game', express.static('game'));
