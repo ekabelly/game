@@ -12,7 +12,7 @@ const {
 
 const {responseMiddleware} = require('../services');
 
-Router.get('/chars', fetchAllCharacters, fetchAllCharactersDetails, responseMiddleware);
+Router.get('/chars', fetchAllCharacters, responseMiddleware);
 
 Router.get('/:id/char', fetchChar, fetchCharStats, fetchCharItems, responseMiddleware);
 

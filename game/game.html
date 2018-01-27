@@ -1,0 +1,57 @@
+<div class="container-fluid" ng-controller="game">
+	<div class="row">
+		<div class="col-md-5 container-fluid">
+			<div  ng-if="data.showChar">
+				<div class="row">
+					<h3>{{data.showChar.name}}</h3>
+					<div class="col-md-12">
+						<img src="{{data.showChar.classImg}}" width="20%">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h4>Stats</h4>
+						<table class="table table-hover">
+							<tr ng-repeat="val in data.showChar.charStats">
+								<td>{{val.stat}}</td>
+								<td>{{val.value}}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-6">
+						<h4>Items</h4>
+						<table class="table table-hover">
+							<tr>
+								<th>item</th>
+								<th>equipped</th>
+							</tr>
+							<tr ng-repeat="val in data.showChar.charItems">
+								<td>{{val.item}}</td>
+								<td><span class="glyphicon glyphicon-ok" ng-if="val.used"></span><span class="glyphicon glyphicon-remove" ng-if="!val.used"></span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="table">
+				<table class="table table-hover">
+					<tr>
+						<th> id </th>
+						<th> name </th>
+						<th> level </th>
+						<th> class </th>
+					</tr>
+					<tr ng-repeat="(key, val) in data.chars" ng-click="fetchChar(val.id)">
+						<td> {{val.id}} </td>
+						<td>{{val.name}}</td>
+						<td>{{val.level}}</td>
+						<td>{{val.class}}</td>
+					</div>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+</div>

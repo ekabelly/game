@@ -4,7 +4,7 @@ const queries = {
 	+" classes on characters.class = classes.id"
 	+" inner JOIN"
 	+" levels on characters.level = levels.id",
-	fetchChar:"SELECT characters.name, characters.id, characters.level, characters.xp, levels.reqxp, classes.name as class FROM characters"
+	fetchChar:"SELECT characters.name, characters.id, characters.level, characters.xp, levels.reqxp, classes.name as class, classes.picture as classImg FROM characters"
 	+" inner JOIN"
 	+" classes on characters.class = classes.id"
 	+" inner JOIN"
