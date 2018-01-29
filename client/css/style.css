@@ -2,6 +2,7 @@
 	padding: 0;
 	margin: 0;
 	text-align: center;
+	font-family: 'Indie Flower', cursive;
 }
 
 .headerSpace {
@@ -10,4 +11,31 @@
 
 td {
 	text-align: left !important;
+}
+
+input {
+	width: 50%;
+	background: rgba(255,255,255,0) !important;
+	border: none !important;
+	border-bottom: 2px solid black !important;
+	color: black !important;
+}
+
+input::placeholder { /* Chrome/Opera/Safari */
+  color: black !important;
+  opacity: 1 !important;
+  text-align: left;
+}
+
+.loginBtn {
+	background: rgba(255,255,255,0.7) !important;	
+	border-color: #adadad !important;
+}
+
+.loginFormGrp {
+	width: 70%;
+}
+
+.pointer {
+	cursor: pointer;
 }
