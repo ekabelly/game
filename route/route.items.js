@@ -4,7 +4,7 @@ const Router = express.Router();
 const {
 	fetchItems,
 	fetchItem
-} = require('../db/mysql.game');
+} = require('../db/mysql.items');
 
 const {responseMiddleware, arrangeData} = require('../services');
 

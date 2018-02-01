@@ -3,19 +3,21 @@ const Router = express.Router();
 
 const {
 	fetchAllCharacters,
-	fetchAllCharactersDetails,
 	fetchChar,
 	fetchCharStats,
 	fetchCharItems,
-	findCharByName
-} = require('../db/mysql.game');
+	findCharByName,
+	fetchUserChars
+} = require('../db/mysql.chars');
 
-const {responseMiddleware} = require('../services');
+const {responseMiddleware, passCurrentUserId} = require('../services');
 
 Router.get('/chars', fetchAllCharacters, responseMiddleware);
 
 Router.get('/:id/char', fetchChar, fetchCharStats, fetchCharItems, responseMiddleware);
 
 Router.get('/:name/findChar', findCharByName, responseMiddleware);
+
+Router.get('/userChars', passCurrentUserId, fetchUserChars, responseMiddleware);
 
 module.exports = Router;

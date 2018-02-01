@@ -16,7 +16,8 @@ const queries = {
 	fetchCharItems:"SELECT items.name as item, items.id as id, character_items.used FROM character_items"
 	+" INNER JOIN items on character_items.item_id = items.id"
 	+" where character_items.character_id = ?",
-	findCharByName:"SELECT id FROM characters where name like "
+	findCharByName:"SELECT id FROM characters where name like ",
+	whereUser:" where characters.user = ?"
 }
 
 module.exports = queries;

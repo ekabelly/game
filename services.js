@@ -33,10 +33,16 @@ const arrangeData = (req,res,next) =>{
 	next();
 }
 
+const passCurrentUserId = (req, res, next) =>{
+	req.data = {...req.data, userId:req.user.id};
+	next();
+}
+
 module.exports = {
 	responseMiddleware, 
 	arrangeData,
 	moreDataHandler,
 	successHandler,
-	errorHandler
+	errorHandler,
+	passCurrentUserId
 };

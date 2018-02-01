@@ -13,18 +13,14 @@ app.controller('Login', ($scope, $http, services) => {
 	} 
 
 	const initPage = () =>{
-		services.isAuthenticated().then(res=>{
-			successHandler('user', res.data.data);
-			location.href = '/game';
-		}).catch(err=>{
+		services.isAuthenticated().then(res=>successHandler('user', res.data.data)).catch(err=>{
 			$scope.user = false;
+			$scope.login = {};
 		});
 	}
 
-	$scope.initLogin = () =>$http.post('/login', {email:$scope.login.email, password:$scope.login.pass}).then(response=>{
-		successHandler('user', response.data.data);
-		location.href = '/game';
-	}).catch(err=>errHnadler(err));
+	$scope.initLogin = () =>services.login($scope.login.email, $scope.login.pass).then(response=>
+		successHandler('user', response.data.data)).catch(err=>errHnadler(err));
 
 	initPage();
 	

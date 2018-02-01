@@ -39,3 +39,9 @@ input::placeholder { /* Chrome/Opera/Safari */
 .pointer {
 	cursor: pointer;
 }
+
+.logoutBtnContainer {
+	padding: 10px 15px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
