@@ -23,11 +23,14 @@ const fetchCharItems = (req, res, next) =>con.query(chars.fetchCharItems, req.pa
 
 const fetchUserChars = (req, res, next) =>con.query(chars.fetchChars+chars.whereUser, [req.data.userId], (err, rows)=>errorHandler(err, res, ()=>successHandler(req, rows, next)));
 
+const createChar = (req, res, next) =>con.query(chars.createChar, [req.user.id, req.body.name, req.body.class], (err, row)=>errorHandler(err, res, ()=>successHandler(req, row, next)));
+
 module.exports = {
 	fetchAllCharacters,
 	fetchChar,
 	fetchCharStats,
 	fetchCharItems,
 	findCharByName,
-	fetchUserChars
+	fetchUserChars,
+	createChar
 }

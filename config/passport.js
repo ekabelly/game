@@ -45,10 +45,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-		// find a user whose email is the same as the forms email
-		// we are checking to see if the user trying to login already exists
         connection.query(users.fetchByEmail, email,function(err,rows){
-            // console.log(rows);
 			if (err) return done(err);
 			if (rows.length) {
                 return done(null, false, {signupMessage:'That email is already taken.'});
@@ -78,13 +75,13 @@ module.exports = function(passport) {
 			if (err)
                 return done(err);
 			 if (!rows.length) {
-                return done(null, false, {loginMessage:'No user found.'}); // req.flash is the way to set flashdata using connect-flash
+                return done(null, false, {loginMessage:'No user found.'});
             } 
 			
 			// if the user is found but the password is wrong
-            if (rows[0].pass !== passToCrypto(password)) return done(null, false, {loginMessage:'Oops! Wrong password.'}); // create the loginMessage and save it to session as flashdata
-			
-            // all is well, return successful user
+            if (rows[0].pass !== passToCrypto(password)) {
+                return done(null, false, {loginMessage:'Oops! Wrong password.'});
+            }
             return done(null, rows[0]);			
 		
 		});

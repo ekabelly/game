@@ -3,13 +3,23 @@ const session = require('express-session');
 const app = express();
 const BP = require('body-parser');
 const CP = require('cookie-parser');
-const {userResponse, validateUser, secret} = require('./config/config');
 const passport = require('passport');
+
 const passportConfig = require('./config/passport');
+const con = require('./db/connection');
+
+const {userResponse, validateUser, validateAdmin, secret} = require('./config/config');
+
+//general routes
 const ItemsRoute = require('./route/route.items');
 const CharsRoute = require('./route/route.chars');
 const SkillsRoute = require('./route/route.skills');
-const con = require('./db/connection');
+
+//admin routes
+const adminCharsRoute = require('./route/route.admin.chars');
+const adminSkillsRoute = require('./route/route.admin.skills');
+
+
 
 const startServer = () => app.listen(4001, ()=>console.log('server up on port 4001'));
 
@@ -58,10 +68,10 @@ app.use('/skills', SkillsRoute);
 
 app.use('/items', ItemsRoute);
 
-// con.connect((err) => {
-//   if (err){
-//   	con.end();
-//   	throw err;
-//   }
-  startServer();
-// });
+app.all('*', validateAdmin);
+
+app.use('/admin/chars', adminCharsRoute);
+
+app.use('/admin/skills', adminSkillsRoute);
+
+startServer();

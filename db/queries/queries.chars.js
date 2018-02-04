@@ -17,7 +17,8 @@ const queries = {
 	+" INNER JOIN items on character_items.item_id = items.id"
 	+" where character_items.character_id = ?",
 	findCharByName:"SELECT id FROM characters where name like ",
-	whereUser:" where characters.user = ?"
+	whereUser:" where characters.user = ?",
+	createChar:"INSERT INTO characters (user, name, class, level) VALUES (?, ?, ?, 1)"
 }
 
 module.exports = queries;

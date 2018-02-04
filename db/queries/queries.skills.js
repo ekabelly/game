@@ -3,7 +3,8 @@ const queries = {
 	+" inner join skills on skillseffects.skill_id = skills.id"
 	+" INNER join effects on skillseffects.effect_id = effects.id"
 	+" where skillseffects.skill_id = ?",
-	fetchSkills:''
+	fetchSkills:'',
+	createSkill:"INSERT INTO skills(name, description, picture, level) VALUES (?, ?, ?, ?)"
 }
 
 

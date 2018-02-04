@@ -1,4 +1,4 @@
-app.controller('game', ($scope, $http, services) => {
+app.controller('game', ($scope, $http, services) => { 
 
 	const successHandler = (req, res) =>$scope[req] = res;
 
@@ -24,8 +24,7 @@ app.controller('game', ($scope, $http, services) => {
 		services.fetchUserChars().then(res=>{
 			console.log(res.data.data);
 			successHandler('data', {
-				...$scope.data,
-				user:true, 
+				...$scope.data, 
 				chars:res.data.data
 			});
 		});
@@ -33,10 +32,14 @@ app.controller('game', ($scope, $http, services) => {
 	const initPage = () =>services.isAuthenticated().then(res=>{
 		successHandler('user', res.data.data);
 		fetchUserChars();
-	}).catch(err=>{$scope.user = false});
+	}).catch(err=>{
+		$scope.user = false;
+		$scope.login = {};
+	});
 
-	initPage();
-
-	// fetchAllChars(data=>$scope.data = {chars:data});
+	$scope.initLogin = () =>services.login($scope.login.email, $scope.login.pass).then(response=>{
+		successHandler('user', response.data.data);
+		fetchUserChars();
+	}).catch(err=>errHnadler(err));
 
 });
