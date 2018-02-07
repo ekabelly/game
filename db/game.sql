@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2018 at 03:15 AM
+-- Generation Time: Feb 07, 2018 at 05:02 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -42,7 +42,10 @@ CREATE TABLE `characters` (
 INSERT INTO `characters` (`id`, `user`, `name`, `class`, `level`, `xp`) VALUES
 (1, 1, 'ido', 5, 1, 0),
 (2, 1, 'key', 7, 2, 223),
-(3, 1, 'jo', 9, 3, 66);
+(3, 1, 'jo', 9, 3, 66),
+(8, 1, 'eli', 6, 1, 0),
+(9, 1, 'dana', 8, 1, 0),
+(11, 1, 'banana', 8, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -252,18 +255,21 @@ CREATE TABLE `skills` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `picture` varchar(255) NOT NULL
+  `picture` varchar(255) NOT NULL,
+  `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `skills`
 --
 
-INSERT INTO `skills` (`id`, `name`, `description`, `picture`) VALUES
-(1, 'strike', '', ''),
-(2, 'fire arrow', '', ''),
-(3, 'fire ball', '', ''),
-(4, 'heal other', '', '');
+INSERT INTO `skills` (`id`, `name`, `description`, `picture`, `level`) VALUES
+(1, 'strike', '', '', 1),
+(2, 'fire arrow', '', '', 2),
+(3, 'fire ball', '', '', 1),
+(4, 'heal other', '', '', 1),
+(5, 'ice wall', '', '', 1),
+(6, 'firewall', '', '', 2);
 
 -- --------------------------------------------------------
 
@@ -317,15 +323,19 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL,
-  `picture` varchar(255) NOT NULL
+  `picture` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `pass`, `picture`) VALUES
-(1, 'ekabelly@gmail.com', '1234', '');
+INSERT INTO `users` (`id`, `email`, `pass`, `picture`, `role`) VALUES
+(1, 'ekabelly@gmail.com', '3cc6b110132520a4d45c40172baa3d56e451968f4f659999ed032ab74f22d123', 'https://pre00.deviantart.net/741c/th/pre/f/2016/275/9/4/940e5194bff7a96eb52cde93b7c7ef1f-d9228bd.png', 'admin'),
+(9, '123@123', '3cc6b110132520a4d45c40172baa3d56e451968f4f659999ed032ab74f22d123', '1234', 'player'),
+(10, '231d21@fewdsaa', '3cc6b110132520a4d45c40172baa3d56e451968f4f659999ed032ab74f22d123', '1234', 'player'),
+(11, '231d21@fewdsd2d2aa', '3cc6b110132520a4d45c40172baa3d56e451968f4f659999ed032ab74f22d123', '1234', 'player');
 
 --
 -- Indexes for dumped tables
@@ -337,8 +347,11 @@ INSERT INTO `users` (`id`, `email`, `pass`, `picture`) VALUES
 ALTER TABLE `characters`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `name_2` (`name`),
+  ADD UNIQUE KEY `name_3` (`name`),
   ADD KEY `class` (`class`),
-  ADD KEY `level` (`level`);
+  ADD KEY `level` (`level`),
+  ADD KEY `user` (`user`);
 
 --
 -- Indexes for table `characterstats`
@@ -437,7 +450,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `characters`
 --
 ALTER TABLE `characters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `character_items`
 --
@@ -477,7 +490,7 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `skillseffects`
 --
@@ -492,7 +505,7 @@ ALTER TABLE `stats`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --
@@ -502,7 +515,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `characters`
   ADD CONSTRAINT `characters_ibfk_1` FOREIGN KEY (`class`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `characters_ibfk_2` FOREIGN KEY (`level`) REFERENCES `levels` (`id`);
+  ADD CONSTRAINT `characters_ibfk_2` FOREIGN KEY (`level`) REFERENCES `levels` (`id`),
+  ADD CONSTRAINT `characters_ibfk_3` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `characterstats`
