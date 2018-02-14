@@ -38,11 +38,25 @@ const passCurrentUserId = (req, res, next) =>{
 	next();
 }
 
+const createUpdateQueryArr = req =>{
+	let query = '';
+	Object.keys(req.body).forEach((field, i)=>{
+		if (field === 'id') return;
+		if (req.body[field]) {
+			query+=field+"='"+req.body[field]+"'";
+		}	
+		if (Object.values(req.body)[i+1]) query+=",";
+	});
+	query+=" where id = "+req.params.id;
+	return query;
+}
+
 module.exports = {
 	responseMiddleware, 
 	arrangeData,
 	moreDataHandler,
 	successHandler,
 	errorHandler,
-	passCurrentUserId
+	passCurrentUserId,
+	createUpdateQueryArr
 };
