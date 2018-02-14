@@ -40,13 +40,14 @@ const passCurrentUserId = (req, res, next) =>{
 
 const createUpdateQueryArr = req =>{
 	let query = '';
-	Object.keys(req.body).forEach((field, i)=>{
+	const addQuery = (field, i) =>{
 		if (field === 'id') return;
 		if (req.body[field]) {
 			query+=field+"='"+req.body[field]+"'";
 		}	
 		if (Object.values(req.body)[i+1]) query+=",";
-	});
+	}
+	Object.keys(req.body).forEach(addQuery);
 	query+=" where id = "+req.params.id;
 	return query;
 }
