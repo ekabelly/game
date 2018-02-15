@@ -38,19 +38,40 @@ const passCurrentUserId = (req, res, next) =>{
 	next();
 }
 
-const createUpdateQueryArr = req =>{
+const createUpdateQuery = (req, res, next) =>{
+	let query = queryByReq(req)+'where id = ?';
+	req.query = {...req.query, str:query};
+	next();
+}
+
+const queryByReq = req =>{
 	let query = '';
 	const addQuery = (field, i) =>{
 		if (field === 'id') return;
-		if (req.body[field]) {
-			query+=field+"='"+req.body[field]+"'";
+		if (valideField(field)) {  
+		//every possible field will be here as a function 
+		//that returns true or false if that field is valid
+			query+=field+"=?";
 		}	
 		if (Object.values(req.body)[i+1]) query+=",";
 	}
 	Object.keys(req.body).forEach(addQuery);
-	query+=" where id = "+req.params.id;
 	return query;
 }
+
+const createUpdateQueryArr = (req, res, next) =>{
+	const createArr = (field, i) => {
+		if (valideField(field)) {
+			return Object.values(req.body)[i];
+		}
+	}
+	const arr = Object.keys(req.body).map(createArr);
+	arr.push(req.params.id);
+	req.query = {...req.query, arr};
+	next();
+}
+
+const valideField = field =>true;
 
 module.exports = {
 	responseMiddleware, 
@@ -59,5 +80,6 @@ module.exports = {
 	successHandler,
 	errorHandler,
 	passCurrentUserId,
+	createUpdateQuery,
 	createUpdateQueryArr
 };
